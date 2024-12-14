@@ -1,18 +1,9 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Product from "./components/Product";
-import ProductDetail from "./components/ProductDetail";
-
-const router = createBrowserRouter([
-  { path: "/", element: <Product /> },
-  { path: "/product/:id", element: <ProductDetail /> },
-]);
+import Movie from "./components/Movie";
 
 function App() {
-  return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
-  );
+  return <div>
+    <Movie />
+  </div> 
 }
 
 export default App;
