@@ -1,30 +1,57 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./movie.css";
 
-export default function Movie() {
+export default function Movie({ setBucketName, setFavourites }) {
   const [movieData, setMovieData] = useState([]);
-  const [select, setSelect] = useState("sniper");
   const [searchQuery, setSearchQuery] = useState("");
+  const [favourites, setLocalFavourites] = useState([]);
+  const [bucketName, setLocalBucketName] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
+  const navigate = useNavigate();
 
   async function getData(query) {
-    let data = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=69b71180`).then((res) => res.json());
+    let data = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=69b71180`).then((res) =>
+      res.json()
+    );
     if (data.Response === "True") {
       setMovieData(data.Search);
-      console.log(movieData)
     } else {
       setMovieData([]);
-      console.log(movieData)
     }
   }
 
   useEffect(() => {
-    getData(select);
-  }, [select]);
+    getData("sniper");
+  }, []);
 
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
-      setSelect(searchQuery);
+      getData(searchQuery);
     }
+  };
+
+  const handleAddFavourite = (movie) => {
+    if (!favourites.some((fav) => fav.imdbID === movie.imdbID) && !isSaved) {
+      setLocalFavourites([...favourites, movie]);
+    }
+  };
+
+  const handleRemoveFavourite = (movie) => {
+    setLocalFavourites(favourites.filter((fav) => fav.imdbID !== movie.imdbID));
+  };
+
+  const handleSave = () => {
+    setBucketName(bucketName.trim());
+    setFavourites(favourites);
+    setIsSaved(true);
+  };
+
+  const handleGoBucket = () => {
+    navigate("/bucket");
+    setLocalBucketName("");
+    setLocalFavourites([]);
+    setIsSaved(false);
   };
 
   return (
@@ -40,8 +67,11 @@ export default function Movie() {
               placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              disabled={isSaved} 
             />
-            <button onClick={handleSearch}>Search</button>
+            <button onClick={handleSearch}>
+              Search
+            </button>
           </div>
           <div className="movie-list">
             {movieData.length > 0 ? (
@@ -53,7 +83,12 @@ export default function Movie() {
                   <div className="about">
                     <p>{movie.Title}</p>
                     <p>{movie.Year}</p>
-                    <button>View Details</button>
+                    <button
+                      onClick={() => handleAddFavourite(movie)}
+                      disabled={isSaved}
+                    >
+                      Add Favourite
+                    </button>
                   </div>
                 </div>
               ))
@@ -63,50 +98,30 @@ export default function Movie() {
           </div>
         </div>
         <div className="right-main">
-            <input type="text" value="Bura favori yazirsan" />
-            <div className="add">
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-             <div className="add-box">
-                <p>American Sniper</p>
-                <i class="fa-solid fa-xmark"></i>
-             </div>
-            </div>
-            <button className="btn">Save</button>
+          <input
+            className="add-inp"
+            type="text"
+            placeholder="Enter bucket name"
+            value={bucketName}
+            onChange={(e) => setLocalBucketName(e.target.value)}
+            disabled={isSaved}
+          />
+          <div className="add">
+            {favourites.map((fav) => (
+              <div key={fav.imdbID} className="favourite-item">
+                <p>{fav.Title}</p>
+                <button onClick={() => handleRemoveFavourite(fav)}>
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
+          <button className="btn" onClick={handleSave} disabled={isSaved}>
+            Save
+          </button>
+          <button className="btn" onClick={handleGoBucket}>
+            Go to Bucket
+          </button>
         </div>
       </div>
     </div>

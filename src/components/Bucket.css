@@ -1,0 +1,69 @@
+.container-bucket {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: black;
+}
+.bucket-page {
+    background-color: brown;
+    width: 55%;
+    height: fit-content;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    flex-direction: column;
+    margin-top: 25px;
+}
+.bucket-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.bucket-box-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.bucket-box-left p {
+    font-size: 26px;
+    color: black;
+    font-weight: bold;
+}
+.bucket-box-right button {
+    background-color: white;
+    width: 120px;
+    border-radius: 10px;
+    padding: 7px 20px;
+    border: 1px solid white;
+    font-size: 15px;
+    cursor: pointer;
+}
+.bucket-box-right button:hover {
+    background-color: antiquewhite;
+}
+.bucket-box img {
+    width: 95px;
+    height: 95px;
+    border-radius: 99px;
+    object-fit: cover;
+}
+.inp-text {
+    text-align: center;
+    font-weight: bold;
+}
+.bucket-btn {
+    padding: 7px 15px;
+    width: 120px;
+    border: 1px solid brown;
+    border-radius: 10px;
+    background-color: brown;
+    color: white;
+    margin-top: 20px;
+    margin-right: 35px;
+    cursor: pointer;
+}
+.bucket-btn:hover {
+    background-color: red;
+}

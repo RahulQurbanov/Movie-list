@@ -64,10 +64,11 @@ h1 {
     margin-bottom: 25px;
 }
 input {
-    width: 220px;
-    padding: 5px;
+    width: 240px;
+    padding: 7px;
     border: none;
     outline: none;
+    border-radius: 5px;
 }
 .inp button {
     background-color: darkred;
@@ -79,9 +80,9 @@ input {
     cursor: pointer;
 }
 .right-main {
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
-    width: 350px;
+    width: 410px;
     background-color: gray;
     height: fit-content;
 }
@@ -89,6 +90,12 @@ input {
     overflow-y: scroll;
     height: 150px;
     margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.add::-webkit-scrollbar {
+    display: none;
 }
 .add-box {
     width: 270px;
@@ -116,4 +123,35 @@ input {
     border-radius: 10px;
     border: 1px solid black;
     cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+    width: 120px;
+}
+.btn:hover {
+    background-color: rgb(48, 47, 47);
+}
+.add-inp {
+    padding: 7px;
+    width: 210px;
+    border-radius: 5px;
+}
+.favourite-item {
+    display: flex;
+    justify-content: space-between;
+}
+.favourite-item p {
+    font-weight: bold;
+    font-size: 20px;
+}
+.favourite-item button {
+    padding: 7px 10px;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 99px;
+    cursor: pointer;
+}
+.favourite-item button:hover {
+    background-color: rgb(238, 94, 94);
+    border: 1px solid rgb(238, 94, 94);
+    color: white;
 }
