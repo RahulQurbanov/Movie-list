@@ -67,7 +67,6 @@ export default function Movie({ setBucketName, setFavourites }) {
               placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              disabled={isSaved} 
             />
             <button onClick={handleSearch}>
               Search
@@ -119,7 +118,9 @@ export default function Movie({ setBucketName, setFavourites }) {
           <button className="btn" onClick={handleSave} disabled={isSaved}>
             Save
           </button>
-          <button className="btn" onClick={handleGoBucket}>
+          <button className="btn"
+          disabled = {favourites.length ===0}
+          onClick={handleGoBucket}>
             Go to Bucket
           </button>
         </div>
